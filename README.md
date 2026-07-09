@@ -1,7 +1,7 @@
 # taller13
 
 ## Creación de Servicio Web y Consumo vía Flask
-
+## Alberto Herrera - Josué Pardo
 ### Revisar
 - Ejemplo de servicios web con Django y Django-Rest [ejemplos]
 - Ejemplo de consumo de servicios web desde flask [consumo-api]
