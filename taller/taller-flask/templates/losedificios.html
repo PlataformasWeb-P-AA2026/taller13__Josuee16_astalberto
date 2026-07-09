@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Demo</title>
+    <title>Edificios</title>
   </head>
   <body>
-    <h5>Listado de estudiantes - {{numero_estudiantes}}</h5>
+    <h5>Listado de Edificios - {{numero_edificios}}</h5>
 
-    {% for e in estudiantes %}
+    {% for e in edificios %}
 
     <ol>
       <li><b>Nombre: </b>{{e['nombre']}}</li>
-      <li><b>Apellido: </b>{{e['apellido']}}</li>
-      <li><b>Cédula: </b>{{e['cedula']}}</li>
-      <li><b>Correo: </b>{{e['correo']}}</li>
+      <li><b>Direccion: </b>{{e['direccion']}}</li>
+      <li><b>Ciudad: </b>{{e['ciudad']}}</li>
+      <li><b>Tipo: </b>{{e['tipo']}}</li>
     </ol>
     <hr>
     {% endfor%}
