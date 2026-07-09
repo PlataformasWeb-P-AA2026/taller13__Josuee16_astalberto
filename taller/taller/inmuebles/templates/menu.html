@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block titulo %}Menú Principal{% endblock %}
+
+{% block contenido %}
+    <h1>Sistema de Gestión Inmobiliaria</h1>
+    <p>Selecciona una opción del menú para ver el listado correspondiente:</p>
+    <ul>
+        <li><a href="{% url 'inmuebles:listar_edificios' %}">Ver listado de Edificios</a></li>
+        <li><a href="{% url 'inmuebles:listar_departamentos' %}">Ver listado de Departamentos</a></li>
+    </ul>
+{% endblock %}

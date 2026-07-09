@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block titulo %}Departamentos{% endblock %}
+
+{% block contenido %}
+    <h1>Listado de Departamentos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Propietario</th>
+                <th>Costo</th>
+                <th>N.º de Cuartos</th>
+                <th>Edificio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for departamento in departamentos %}
+            <tr>
+                <td>{{ departamento.nombre_propietario }}</td>
+                <td>${{ departamento.costo }}</td>
+                <td>{{ departamento.numero_cuartos }}</td>
+                <td>{{ departamento.edificio.nombre }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay departamentos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
