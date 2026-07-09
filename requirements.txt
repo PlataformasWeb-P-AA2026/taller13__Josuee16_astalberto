@@ -1,0 +1,2 @@
+Django>=5.2
+Flask>=3.1
