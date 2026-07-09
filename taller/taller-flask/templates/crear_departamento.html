@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Direccion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Crear Nueva Direccion</h1>
+
+        {# Mostrar mensajes flash de Flask #}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+            <li class="flash-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+
+        <form method="POST">
+            <div>
+                <label for="nombre">Nombre del Propietario:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+                <label for="costo">Costo del departamento:</label>
+                <input type="text" id="costo" name="costo" required>
+            </div>
+            <div>
+                <label for="numero_cuartos">Numero de cuartos del departamento:</label>
+                <input type="text" id="numero_cuartos" name="numero_cuartos" required>
+            </div>
+            <div>
+                <label for="edificio">Edificio:</label>
+                <select id="edificio" name="edificio" required>
+                    {% if edificios %}
+                    {% for edificio in edificios %}
+                    <option value="{{ edificio.url }}">{{ edificio.nombre }} {{ edificio.direccion }} ({{
+                        edificio.ciudad }}{{edificio.tipo }})</option>
+                    {% endfor %}
+                    {% else %}
+                    <option value="">No hay edificios disponibles</option>
+                    {% endif %}
+                </select>
+            </div>
+            <button type="submit">Crear Edificio</button>
+        </form>
+
+
+        <a href="{{ url_for('los_edificios') }}" class="back-link">Volver a la lista de edificios</a>
+    </div>
+</body>
+
+</html>
