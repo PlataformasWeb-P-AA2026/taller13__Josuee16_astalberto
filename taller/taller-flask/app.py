@@ -36,86 +36,75 @@ def los_departamentos():
     return render_template("lostelefonos.html", datos=datos,
     numero=numero)
 
-# funciones ayuda
-
-def obtener_estudiante(url):
-    """
-    """
-    r = requests.get(url, auth=(usuario, clave))
-    nombre_estudiante = json.loads(r.content)['nombre']
-    apellido_estudiante = json.loads(r.content)['apellido']
-    cadena = "%s %s" % (nombre_estudiante, apellido_estudiante)
-    return cadena
-
-
-@app.route("/crear/estudiante", methods=['GET', 'POST'])
-def agregar_estudiante():
+@app.route("/crear/edificio", methods=['GET', 'POST'])
+def crear_edificio():
     """
     """
     if request.method == 'POST':
         nombre = request.form['nombre']
-        apellido = request.form['apellido']
-        cedula = request.form['cedula']
-        correo = request.form['correo']
+        direccion = request.form['direccion']
+        ciudad = request.form['ciudad']
+        tipo = request.form['tipo']
 
         # Datos a enviar a la API de Django
-        estudiante_data = {
+        edificio_data = {
             'nombre': nombre,
-            'apellido': apellido,
-            'cedula': cedula,
-            'correo': correo
+            'direccion': direccion,
+            'ciudad': ciudad,
+            'tipo': tipo
         }
 
 
         # Realizar la petición POST a la API de Django
-        r = requests.post("http://localhost:8000/api/estudiantes/",
-                              json=estudiante_data, # 'json' serializa el diccionario a JSON automáticamente
+        r = requests.post("http://localhost:8000/api/edificio/",
+                              json=edificio_data, # 'json' serializa el diccionario a JSON automáticamente
                               headers=headers)
 
 
         print(f"Status Code (Crear Estudiante): {r.status_code}")
         # Si todo fue bien (código 201 Created), la API devuelve el objeto creado
-        nuevo_estudiante = json.loads(r.content)
-        flash(f"Estudiante '{nuevo_estudiante['nombre']} {nuevo_estudiante['apellido']}' creado exitosamente!", 'success')
-        return redirect(url_for('los_estudiantes')) # Redirigir a la lista de estudiantes
+        nuevo_edificio = json.loads(r.content)
+        flash(f"Edificio '{nuevo_edificio['nombre']}' creado exitosamente!", 'success')
+        return redirect(url_for('los_edificios')) 
 
     # Si es una petición GET o si hubo un error en POST, muestra el formulario
-    return render_template("crear_estudiante.html")
+    return render_template("crear_edificio.html")
 
 
-@app.route("/crear/direccion", methods=['GET', 'POST'])
-def crear_direccion():
+@app.route("/crear/departamento", methods=['GET', 'POST'])
+def crear_departamento():
     """
     """
-    estudiantes_disponibles = []
+    edificios_disponibles = []
 
-    r_estudiantes = requests.get("http://localhost:8000/api/estudiantes/", headers=headers)
-    estudiantes_disponibles = json.loads(r_estudiantes.content)['results']
+    r_edificios = requests.get("http://localhost:8000/api/estudiantes/", headers=headers)
+    edificios_disponibles = json.loads(r_edificios.content)['results']
 
     if request.method == 'POST':
-        descripcion = request.form['descripcion']
-        tipo = request.form['tipo']
+        nombre = request.form['nombre']
+        costo = request.form['costo']
+        numero_cuartos = request.form['numero_cuartos']
+        edificios_url = request.form['edificio']
 
-        estudiante_url = request.form['estudiante']
-
-        direccion_data = {
-            'descripcion': descripcion,
-            'tipo': tipo,
-            'estudiante': estudiante_url # Enviamos la URL del estudiante
+        departamento_data = {
+            'nombre': nombre,
+            'costo': costo,
+            'numero_cuartos': numero_cuartos,
+            'edificio': edificios_url # Enviamos la URL del estudiante
         }
 
         r = requests.post("http://localhost:8000/api/direccion/",
-                              json=direccion_data,
+                              json=departamento_data,
                               headers=headers)
 
         print(f"Status Code (Crear Direccion): {r.status_code}")
 
-        direccion_nueva = json.loads(r.content)
-        flash(f"Direccion '{direccion_nueva['descripcion']}' creado exitosamente para el estudiante!", 'success')
-        return redirect(url_for('los_direcciones')) # Redirigir a la lista principal o a una de números
+        edificio_nuevo = json.loads(r.content)
+        flash(f"Departamento '{edificio_nuevo['nombre']}' creado exitosamente para el edificio!", 'success')
+        return redirect(url_for('los_departamentos')) # Redirigir a la lista principal o a una de números
 
     return render_template("crear_direccion.html",
-                           estudiantes=estudiantes_disponibles,
+                           edificios=edificios_disponibles,
                            )
 
 if __name__ == "__main__":
