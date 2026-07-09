@@ -37,8 +37,12 @@
                 <input type="text" id="ciudad" name="ciudad" required>
             </div>
             <div>
-                <label for="tipo">Tipo[residencial, comercial]:</label>
-                <input type="email" id="tipo" name="tipo" required>
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Seleccione un tipo</option>
+                    <option value="residencial">Residencial</option>
+                    <option value="comercial">Comercial</option>
+                </select>
             </div>
             <button type="submit">Crear Edificio</button>
         </form>
