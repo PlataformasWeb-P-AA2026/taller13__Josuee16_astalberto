@@ -10,7 +10,7 @@ from .serializers import (
 )
 def menu(request):
     """Página principal con el menú de navegación."""
-    return render(request, 'menu.html')
+    return render(request, 'index.html')
 
 
 def listar_edificios(request):
